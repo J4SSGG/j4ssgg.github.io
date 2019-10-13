@@ -53,15 +53,17 @@ body {
     width: 100%;
 }
 
-.shootTrigger {
-    position: fixed;
+
+.shootTrigger i {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
+    height: 50px;
+    width: 50px;
     background: red;
     bottom: 100;
-    width: 100%;
+    margin: 0 auto;
+    border-radius: 50%;
 }
 
 .row {

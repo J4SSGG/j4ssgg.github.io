@@ -65,7 +65,7 @@ function filePreview(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             $('#preview img').remove();
-            $('#preview').append('<img src="'+e.target.result+'" width="100%" />');
+            $('#preview').append('<img id="uploadImage" src="'+e.target.result+'" width="100%" />');
             $('#preview img').fadeIn(500);
 
         }
@@ -75,6 +75,6 @@ function filePreview(input) {
 
 function filePreviewCanvas(canvas){
     $('#preview img').remove();
-    $('#preview').append('<img src="'+canvas.toDataURL()+'" width="100%" />');
+    $('#preview').append('<img id="uploadImage" src="'+canvas.toDataURL()+'" width="100%" />');
     $('#preview img').fadeIn(1000);
 }

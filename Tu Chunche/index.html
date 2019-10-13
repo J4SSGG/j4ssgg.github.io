@@ -35,6 +35,7 @@
 
 <body>
 <div id="main" class="container">
+    <input id='key' type="hidden" value="321c6882349243898df7505cb1cb09ea">
     <div>
         <div class="row">
             <h1>
@@ -46,9 +47,11 @@
             <input id="image" class="file" type="file" name="image" accept="image/*">
             <label id="takeImage" for="camera">Usar Cámara</label>
         </div>
-        <div id="preview" class="row mt-5">
-            <canvas id = "canvas" style="display : none;"></canvas>
-        </div>
+        <form name="bing" onsubmit="return newBingImageSearch(this)">
+            <div id="preview" class="row mt-5">
+                <canvas id = "canvas" style="display : none;"></canvas>
+            </div>  
+        </form>
     </div>
 </div>
 
@@ -58,7 +61,7 @@
                 <div id = "shoot">
                     <video id = "video" muted = "muted" playsinline autoplay></video>
                     
-                    <i id = "cameraIcon" class = "material-icons pointer">camera_rear</i>
+                    <i id = "cameraIcon" class = "material-icons pointer">camera</i>
                 </div>
             </div>
     </div>
@@ -68,7 +71,9 @@
         </div>
     </div>
 
-    
+</div>
+
+<div id="responseSection">
 
 </div>
 
@@ -76,6 +81,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/camera.js" async></script>
 <script src="js/app.js" async></script>
+<script src="js/bingVisualSearch.js" async></script>
 
 </body>
 </html>
