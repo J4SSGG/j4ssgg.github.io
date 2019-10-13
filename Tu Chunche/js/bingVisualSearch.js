@@ -95,9 +95,9 @@
 
             // Format the request and send it.
             function sendRequest(file, key) {
-                var market = "en-US";
+                var market = "US";
                 var safeSearch = "off";
-                var baseUri = `https://api.cognitive.microsoft.com/bing/v7.0/images/visualsearch?mkt=${market}&safesearch=${safeSearch}`;
+                var baseUri = `https://tuchunche.cognitiveservices.azure.com/bing/v7.0/images/visualsearch?mkt=${market}&safesearch=${safeSearch}`;
 
                 var form = new FormData();
                 form.append("image", file);
@@ -106,6 +106,7 @@
 
                 request.open("POST", baseUri);
                 request.setRequestHeader('Ocp-Apim-Subscription-Key', key);
+                request.setRequestHeader('BingAPIs-Market', 'en-US');
                 request.addEventListener('load', handleResponse);
                 request.send(form);
             }
@@ -219,43 +220,29 @@
                 for (var j = 0; j < parsedJson.actions.length; j++) {
                     var action = parsedJson.actions[j];
 
-                    var subSectionDiv = document.createElement('div');
-                    subSectionDiv.setAttribute('class', 'subSection');
-                    div.appendChild(subSectionDiv);
+                    
 
-                    var h4 = document.createElement('h4');
-                    h4.innerHTML = action.actionType;
-                    subSectionDiv.appendChild(h4);
+                    if (action.actionType === 'PagesIncluding') {
+                        var subSectionDiv = document.createElement('div');
+                        subSectionDiv.setAttribute('class', 'subSection');
+                        div.appendChild(subSectionDiv);
 
-                    if (action.actionType === 'ImageResults') {
-                        addImageWithWebSearchUrl(subSectionDiv, parsedJson.image, action);
-                    }
-                    else if (action.actionType === 'DocumentLevelSuggestions') {
-                        addRelatedSearches(subSectionDiv, action.data.value);
-                    }
-                    else if (action.actionType === 'RelatedSearches') {
-                        addRelatedSearches(subSectionDiv, action.data.value);
-                    }
-                    else if (action.actionType === 'PagesIncluding') {
+                        var h4 = document.createElement('h4');
+                        h4.innerHTML = action.actionType;
+                        subSectionDiv.appendChild(h4);
+                        console.log(action);
                         addPagesIncluding(subSectionDiv, action.data.value);
                     }
-                    else if (action.actionType === 'VisualSearch') {
-                        addRelatedImages(subSectionDiv, action.data.value);
-                    }
-                    else if (action.actionType === 'Recipes') {
-                        addRecipes(subSectionDiv, action.data.value);
-                    }
                     else if (action.actionType === 'ShoppingSources') {
+                        var subSectionDiv = document.createElement('div');
+                        subSectionDiv.setAttribute('class', 'subSection');
+                        div.appendChild(subSectionDiv);
+
+                        var h4 = document.createElement('h4');
+                        h4.innerHTML = action.actionType;
+                        subSectionDiv.appendChild(h4);
+                        console.log(action);
                         addShopping(subSectionDiv, action.data.offers);
-                    }
-                    else if (action.actionType === 'ProductVisualSearch') {
-                        addProducts(subSectionDiv, action.data.value);
-                    }
-                    else if (action.actionType === 'TextResults') {
-                        addTextResult(subSectionDiv, action);
-                    }
-                    else if (action.actionType === 'Entity') {
-                        addEntity(subSectionDiv, action);
                     }
                 }
             }
@@ -292,7 +279,7 @@
             // Display links to the first 5 webpages that include the image.
             // TODO: Add 'more' link in case the user wants to see all of them.
             function addPagesIncluding(div, pages) {
-                var length = (pages.length > 15) ? 15 : pages.length;
+                var length = pages.length;
 
                 for (var j = 0; j < length; j++) {
                     var page = document.createElement('a');
