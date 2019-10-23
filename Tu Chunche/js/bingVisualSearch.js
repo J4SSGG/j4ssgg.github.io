@@ -90,6 +90,7 @@
 
             // Called when the user clicks the Query insights button.
             function handleQuery() {
+                showWait();
                 var subscriptionKey = document.getElementById('key').value;
 
                 // Make sure user provided a subscription key and image.
@@ -144,6 +145,7 @@
             // Handles the response from Bing. Parses the response and 
             // the tag divs.
             function handleResponse() {
+                hideWait()
                 if(this.status !== 200){
                     alert("Error calling Bing Visual Search. See console log for details.");
                     console.log(this.responseText);

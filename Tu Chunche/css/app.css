@@ -169,6 +169,16 @@ input[type='file'] {
   margin-top: 5rem;
 }
 
+#load {
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.75);
+}
+
 .preloader {
   position: fixed;
   top: calc(50% - 35px);

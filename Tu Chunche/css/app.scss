@@ -2,6 +2,14 @@ $color-background: #427180;
 $color-text :  #5a5a5a;
 $color-search :  #5d8394;
 
+// text animations
+
+$textHeight: 50px;
+$letterSize: 25px;
+$wordLength: 4;
+$animationDuration: .5s;
+$animationInterval: .1s;
+
 *,
 *:before,
 *:after {
@@ -144,6 +152,16 @@ input[type='file'] {
 
 .mt-5{
     margin-top: 5rem;  
+}
+
+#load{
+    position: fixed;    
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.75);
 }
 
 .preloader {

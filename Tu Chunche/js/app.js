@@ -83,3 +83,15 @@ function filePreviewCanvas(canvas){
     $('#preview').append('<img id="uploadImage" src="'+canvas.toDataURL()+'" width="100%" />');
     $('#preview img').fadeIn(1000);
 }
+
+$(document).ready(function(){
+    $('#load').hide();
+});
+
+function showWait(){
+    $('#load').show();
+}
+
+function hideWait(){
+    $('#load').hide();
+}
