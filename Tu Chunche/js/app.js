@@ -49,6 +49,11 @@ $('#cameraIcon').click(function(){
     
 });
 
+/// buscar
+$('#buscar').click(function(){
+    handleQuery();    
+});
+
 /// actualizar nombre de input file
 // generar preview
 

@@ -1,5 +1,6 @@
 $color-background: #427180;
 $color-text :  #5a5a5a;
+$color-search :  #5d8394;
 
 *,
 *:before,
@@ -102,6 +103,21 @@ video {
     font-weight: 600;
     color: #fff;
     background-color: $color-text;
+    display: inline-block;
+    transition: all .5s;
+    cursor: pointer;
+    padding: 15px 40px !important;
+    text-transform: uppercase;
+    width: fit-content;
+    text-align: center;
+    margin-right: 10px;
+}
+
+label[for='search']  {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: $color-search;
     display: inline-block;
     transition: all .5s;
     cursor: pointer;
