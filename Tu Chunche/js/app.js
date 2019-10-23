@@ -57,12 +57,15 @@ $('#buscar').click(function(){
 /// actualizar nombre de input file
 // generar preview
 
-jQuery('input[type=file]').change(function(){
-    $('#imageName').html(jQuery(this).val().split('\\').pop());
-    filePreview($('input[type=file]')[0]);
+$('input[type=file]').change(function(){
+    if(!$(this).val()){
+        //$(this).html('Cargar Imagen');
+    }else{
+        console.log(this);
+        $('#imageName').html($(this).val().split('\\').pop());
+        filePreview(this);
+    }
 });
-
-
 
 
 function filePreview(input) {
