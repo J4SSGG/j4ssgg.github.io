@@ -153,9 +153,7 @@
                 }
 
                 var tags = parseResponse(JSON.parse(this.responseText));
-                var h4 = document.createElement('h4');
-                h4.textContent = 'Bing internet search results';
-                document.getElementById('responseSection').appendChild(h4);
+                
                 buildTagSections(tags);
 
                 document.body.style.cursor = 'default'; // reset the wait curor set by query insights button
@@ -259,7 +257,7 @@
                         div.appendChild(subSectionDiv);
 
                         var h4 = document.createElement('h4');
-                        h4.innerHTML = action.actionType;
+                        h4.innerHTML = "Distribuidores";
                         subSectionDiv.appendChild(h4);
                         console.log(action);
                         addPagesIncluding(subSectionDiv, action.data.value);
@@ -270,42 +268,13 @@
                         div.appendChild(subSectionDiv);
 
                         var h4 = document.createElement('h4');
-                        h4.innerHTML = action.actionType;
+                        h4.innerHTML = "Tiendas en Línea";
                         subSectionDiv.appendChild(h4);
                         console.log(action);
                         addShopping(subSectionDiv, action.data.offers);
                     }
                 }
             }
-
-
-            // Display the first 10 related images.
-            // TODO: Add 'more' link in case the user wants to see all of them.
-            function addRelatedImages(div, images) {
-                var length = (images.length > 10) ? 10 : images.length;
-
-                // Set the title to the website that hosts the image. The title displays 
-                // when the user hovers over the image. 
-
-                // Make the image clickable. If the user clicks the image, they're taken
-                // to the image in Bing.com.
-
-                for (var j = 0; j < length; j++) {
-                    var img = document.createElement('img');
-                    img.setAttribute('src', images[j].thumbnailUrl + '&w=120&h=120');
-                    img.setAttribute('style', 'margin: 20px 20px 0 0; cursor: pointer;');
-                    img.setAttribute('title', images[j].hostPageDisplayUrl);
-                    img.setAttribute('data-webSearchUrl', images[j].webSearchUrl)
-
-                    img.addEventListener('click', function(e) {
-                        var url = e.target.getAttribute('data-webSearchUrl');
-                        window.open(url, 'foo');
-                    })
-
-                    div.appendChild(img);
-                }
-            }
-
 
             // Display links to the first 5 webpages that include the image.
             // TODO: Add 'more' link in case the user wants to see all of them.
@@ -323,61 +292,6 @@
                     div.appendChild(document.createElement('br'));
                 }
             }
-
-
-            // Display the first 10 related searches. Include a link with the image
-            // that when clicked, takes the user to Bing.com and displays the 
-            // related search results.
-            // TODO: Add 'more' link in case the user wants to see all of them.
-            function addRelatedSearches(div, relatedSearches) {
-                var length = (relatedSearches.length > 10) ? 10 : relatedSearches.length;
-
-                for (var j = 0; j < length; j++) {
-                    var childDiv = document.createElement('div');
-                    childDiv.setAttribute('class', 'stackLink');
-                    div.appendChild(childDiv);
-
-                    var img = document.createElement('img');
-                    img.setAttribute('src', relatedSearches[j].thumbnail.url + '&w=120&h=120');
-                    img.setAttribute('style', 'margin: 20px 20px 0 0;');
-                    childDiv.appendChild(img);
-
-                    var relatedSearch = document.createElement('a');
-                    relatedSearch.text = relatedSearches[j].displayText;
-                    relatedSearch.setAttribute('href', relatedSearches[j].webSearchUrl);
-                    relatedSearch.setAttribute('target', '_blank');
-                    childDiv.appendChild(relatedSearch);
-
-                }
-            }
-
-
-            // Display links to the first 10 recipes. Include the recipe's rating,
-            // if available. 
-            // TODO: Add 'more' link in case the user wants to see all of them.
-            function addRecipes(div, recipes) {
-                var length = (recipes.length > 10) ? 10 : recipes.length;
-
-                for (var j = 0; j < length; j++) {
-                    var para = document.createElement('p');
-
-                    var recipe = document.createElement('a');
-                    recipe.text = recipes[j].name;
-                    recipe.setAttribute('href', recipes[j].url);
-                    recipe.setAttribute('style', 'margin: 20px 20px 0 0');
-                    recipe.setAttribute('target', '_blank')
-                    para.appendChild(recipe);
-
-                    if (recipes[j].hasOwnProperty('aggregateRating')) {
-                        var span = document.createElement('span');
-                        span.textContent = 'rating: ' + recipes[j].aggregateRating.text;
-                        para.appendChild(span);
-                    }
-
-                    div.appendChild(para);
-                }
-            }
-
 
             // Display links for the first 10 shopping offers.
             // TODO: Add 'more' link in case the user wants to see all of them.

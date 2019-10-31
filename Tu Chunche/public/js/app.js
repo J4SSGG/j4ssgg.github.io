@@ -51,7 +51,12 @@ $('#cameraIcon').click(function(){
 
 /// buscar
 $('#buscar').click(function(){
-    handleQuery();    
+    try {
+        handleQuery(); 
+    } catch (error) {
+        alert("Debe seleccionar una imagen.")
+        hideWait();
+    }   
 });
 
 /// actualizar nombre de input file
@@ -89,6 +94,8 @@ function filePreviewCanvas(canvas){
 
 $(document).ready(function(){
     $('#load').hide();
+
+    $('#identificate').click(login)
 });
 
 function showWait(){
@@ -97,4 +104,27 @@ function showWait(){
 
 function hideWait(){
     $('#load').hide();
+}
+
+function verificarFormulario(){
+    if($("#usuario").val() && $("#contrasena").val()){
+        return true;
+    }
+
+    if(!$("#usuario").val()){
+        $('.error-usuario').show();
+    }
+    if(!$("#contrasena").val()){
+        $('.error-contrasena').show();
+    }
+    return false;
+}
+
+function login(){
+    if(verificarFormulario()){
+        usuario = $("#usuario").val()
+        contrasea = $("#contrasena").val()
+
+        checkUser(usuario, contrasea)
+    }
 }
