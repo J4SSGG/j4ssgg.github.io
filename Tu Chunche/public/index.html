@@ -37,6 +37,10 @@
 <div id="main" class="container">
     <input id='key' type="hidden" value="321c6882349243898df7505cb1cb09ea">
     <div>
+        <div class="tooltip">
+            Búsquedas: <span id="cantidad">1</span><br>
+            Calificación: <span id="calificacion">1</span>
+        </div>
         <div class="row">
             <h1>
                 ¿Dónde Compraste Tu Chunche?
@@ -77,6 +81,29 @@
 <div id="load">
     <div class="preloader"></div>
 </div>
+
+<div class="wrap">
+    <form class="login-form" action="">
+        <div class="form-header">
+            <h3>Indentifícate</h3>
+            <p>Ingresa un usuario y contraseña</p>
+        </div>
+        <!--Email Input-->
+        <div class="form-group">
+            <input id="usuario"  minlength="8" type="text" class="form-input" placeholder="Usuario">
+            <label class="error error-usuario">Usuario no válido</label>
+        </div>
+        <!--Password Input-->
+        <div class="form-group">
+            <input id="contrasena" type="password" minlength=8 class="form-input" placeholder="Contraseña">
+            <label class="error error-contrasena">Contraseña no válida</label>
+        </div>
+        <!--Login Button-->
+        <div class="form-group">
+            <button id="identificate"  class="form-button" type="button">Listo</button>
+        </div>
+    </form>
+</div><!--/.wrap-->
 
 
 <div id="responseSection">

@@ -38,14 +38,39 @@ let checkPassword = (snapshot, password) => {
 
 };
 
+let getStats = () => {
+    firebase.database()
+        .ref('calificaciones')
+        .on('value', function (snapshot) {
+            $("#cantidad").html(snapshot.val().cantidad);
+            $("#calificacion").html((snapshot.val().acumulado / snapshot.val().cantidad).toFixed(2));
+        });
+}
+
+let updateStats = (calificacion) => {
+    firebase.database()
+        .ref('calificaciones/cantidad')
+        .transaction(function(cantidad) {
+            // If node/clicks has never been set, currentRank will be `null`.
+            return (cantidad || 0) + 1;
+          });
+    firebase.database()
+        .ref('calificaciones/acumulado')
+        .transaction(function(acumulado) {
+            // If node/clicks has never been set, currentRank will be `null`.
+            return (acumulado || 0) + calificacion;
+          });
+}
+
 let checkSession = () => {
     if (sessionStorage.user == "true"){
-        alert('Good');
+        $(".wrap").hide()
     }else{
-        alert('No hemos encontrado un registro de sus datos.')
+        $(".wrap").show()
     }
 }
 
 $(document).ready(function() {
-    checkUser("joe", 1234);
+    getStats();
+    checkSession();
 });
