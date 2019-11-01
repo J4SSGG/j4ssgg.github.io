@@ -52,10 +52,13 @@ $('#cameraIcon').click(function(){
 /// buscar
 $('#buscar').click(function(){
     try {
-        handleQuery(); 
+        handleQuery();
+        updateStats(1,0,0); // aumenta las busquedas en 1
+        $("#calificar").show(); //muestra seccion calificar
     } catch (error) {
         alert("Debe seleccionar una imagen.")
         hideWait();
+        $("#calificar").hide();
     }   
 });
 
@@ -96,6 +99,10 @@ $(document).ready(function(){
     $('#load').hide();
 
     $('#identificate').click(login)
+
+    $('#enviarCalificacion').click(calificar)
+
+    $("#calificar").hide();
 });
 
 function showWait(){
@@ -127,4 +134,17 @@ function login(){
 
         checkUser(usuario, contrasea)
     }
+}
+
+function calificar(){
+    valorCalificacion  = $("#calificacionValor").val()
+    if (!valorCalificacion || valorCalificacion < 0){
+        $("#calificar").hide()
+        return
+    }
+
+    updateStats(0, 1, parseInt(valorCalificacion));
+
+    $("#calificar").hide();
+    getStats();
 }

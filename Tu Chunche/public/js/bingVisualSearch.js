@@ -125,8 +125,8 @@
 
             // Format the request and send it.
             function sendRequest(file, key) {
-                var market = "US";
-                var safeSearch = "off";
+                var market = "en-us";
+                var safeSearch = "Off";
                 var baseUri = `https://tuchunche.cognitiveservices.azure.com/bing/v7.0/images/visualsearch?mkt=${market}&safesearch=${safeSearch}`;
 
                 var form = new FormData();
@@ -244,6 +244,8 @@
                 div.appendChild(para); 
 
                 var parsedJson = JSON.parse(json);
+
+                console.log(parsedJson);
 
                 // Loop through all the actions in the tag and display them.
                 for (var j = 0; j < parsedJson.actions.length; j++) {
