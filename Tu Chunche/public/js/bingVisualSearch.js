@@ -122,12 +122,44 @@
 
             }
 
+            function sendRequest2(insightsToken, subscriptionKey){
+                let visualSearchBaseURL = 'https://eastus.api.cognitive.microsoft.com/bing/v7.0/images/visualsearch/?mkt=en-us',
+                    boundary = 'boundary_ABC123DEF456',
+                    startBoundary = '--' + boundary,
+                    endBoundary = '--' + boundary + '--',
+                    newLine = "\r\n",
+                    bodyHeader = 'Content-Disposition: form-data; name="knowledgeRequest"' + newLine + newLine;
+
+                let postBody = {
+                    imageInfo: {
+                        imageInsightsToken: "ccid_x+LKD49M*mid_0DD6A11F1AACE5D529E5F66C877F6A03B102C07D*simid_607999980582798459*thid_OIP.x-LKD49McgQttpEpoinJawHaHa"
+                    }
+                }
+                let requestBody = startBoundary + newLine;
+                requestBody += bodyHeader;
+                requestBody += JSON.stringify(postBody) + newLine + newLine;
+                requestBody += endBoundary + newLine;
+
+                let request = new XMLHttpRequest();
+
+                try {
+                    request.open("POST", visualSearchBaseURL);
+                } 
+                catch (e) {
+                    renderErrorMessage("Error performing visual search: " + e.message);
+                }
+                request.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+                request.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+                request.addEventListener("load", handleResponse2);
+                request.send(requestBody);
+            }
+
 
             // Format the request and send it.
             function sendRequest(file, key) {
                 var market = "en-us";
                 var safeSearch = "Off";
-                var baseUri = `https://tuchunche.cognitiveservices.azure.com/bing/v7.0/images/visualsearch?mkt=${market}&safesearch=${safeSearch}`;
+                var baseUri = `https://eastus.api.cognitive.microsoft.com/bing/v7.0/images/visualsearch/?mkt=en-us`;
 
                 var form = new FormData();
                 form.append("image", file);
@@ -145,6 +177,22 @@
             // Handles the response from Bing. Parses the response and 
             // the tag divs.
             function handleResponse() {
+                if(this.status !== 200){
+                    alert("Error calling Bing Visual Search. See console log for details.");
+                    console.log(this.responseText);
+                    return;
+                }
+                console.log(this.responseText.match(/"imageInsightsToken": "[a-zA-Z0-9_\*\.]+",/g, '')); /// muestra todos los tokens a buscar en sendRequest 2
+
+                
+
+                var subscriptionKey = document.getElementById('key').value;
+                sendRequest2(JSON.parse(this.responseText).image.imageInsightsToken, subscriptionKey);
+            }
+
+            // Handles the response from Bing. Parses the response and 
+            // the tag divs.
+            function handleResponse2() {
                 hideWait()
                 if(this.status !== 200){
                     alert("Error calling Bing Visual Search. See console log for details.");
@@ -245,8 +293,6 @@
 
                 var parsedJson = JSON.parse(json);
 
-                console.log(parsedJson);
-
                 // Loop through all the actions in the tag and display them.
                 for (var j = 0; j < parsedJson.actions.length; j++) {
                     var action = parsedJson.actions[j];
@@ -261,7 +307,6 @@
                         var h4 = document.createElement('h4');
                         h4.innerHTML = "Distribuidores";
                         subSectionDiv.appendChild(h4);
-                        console.log(action);
                         addPagesIncluding(subSectionDiv, action.data.value);
                     }
                     else if (action.actionType === 'ShoppingSources') {
@@ -272,7 +317,6 @@
                         var h4 = document.createElement('h4');
                         h4.innerHTML = "Tiendas en Línea";
                         subSectionDiv.appendChild(h4);
-                        console.log(action);
                         addShopping(subSectionDiv, action.data.offers);
                     }
                 }
