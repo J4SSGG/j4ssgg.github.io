@@ -9,7 +9,7 @@
         
                     // Only process image files.
                     if (!f.type.match('image.*')) {
-                        alert("Debe seleccionar una imágen.");
+                        alert("Debe seleccionar una imagen.");
                         document.getElementById("uploadImage").value = null;
                         continue;
                     }
@@ -132,7 +132,7 @@
 
                 let postBody = {
                     imageInfo: {
-                        imageInsightsToken: "ccid_x+LKD49M*mid_0DD6A11F1AACE5D529E5F66C877F6A03B102C07D*simid_607999980582798459*thid_OIP.x-LKD49McgQttpEpoinJawHaHa"
+                        imageInsightsToken: insightsToken
                     }
                 }
                 let requestBody = startBoundary + newLine;
@@ -184,9 +184,11 @@
                 }
                 console.log(this.responseText.match(/"imageInsightsToken": "[a-zA-Z0-9_\*\.]+",/g, '')); /// muestra todos los tokens a buscar en sendRequest 2
 
-                
 
                 var subscriptionKey = document.getElementById('key').value;
+                this.responseText.match(/"imageInsightsToken": "[a-zA-Z0-9_\*\.]+",/g, '').forEach( element => {
+                    sendRequest2(element.split("\"")[3], subscriptionKey);
+                })
                 sendRequest2(JSON.parse(this.responseText).image.imageInsightsToken, subscriptionKey);
             }
 
@@ -245,20 +247,12 @@
                 var tagSection = document.createElement('div');
                 tagSection.setAttribute('class', 'subSection');
 
-                var link = document.createElement('a');
-                link.setAttribute('href', '#');
-                link.setAttribute('style', 'float: left;')
-                link.text = tag;
-                tagSection.appendChild(link);
-
+                
                 var contentDiv = document.createElement('div');
                 contentDiv.setAttribute('id', tag);
                 contentDiv.setAttribute('style', 'clear: left;')
                 contentDiv.setAttribute('class', 'section');
                 tagSection.appendChild(contentDiv);
-
-                link.setAttribute('onclick', `expandCollapse("${tag}")`);
-                divToggleMap[tag] = 0;  // 1 = show, 0 = hide
 
                 addDivContent(contentDiv, tag, tags[tag]);
 
@@ -268,38 +262,15 @@
 
             // Adds the tag's action types to the div.
             function addDivContent(div, tag, json) {
-
-                // Adds the first 100 characters of the json that contains
-                // the tag's data. The user can click the text to show the
-                // full json. They can click it again to collapse the json.
-                var para = document.createElement('p');
-                para.textContent = String(json).substr(0, 100) + '...';
-                para.setAttribute('title', 'click to expand');
-                para.setAttribute('style', 'cursor: pointer;')
-                para.setAttribute('data-json', json);
-                para.addEventListener('click', function(e) {
-                    var json = e.target.getAttribute('data-json');
-
-                    if (e.target.textContent.length <= 103) {  // 100 + '...'
-                        e.target.textContent = json;
-                        para.setAttribute('title', 'click to collapse');
-                    }
-                    else {
-                        para.textContent = String(json).substr(0, 100) + '...';
-                        para.setAttribute('title', 'click to expand');
-                    }
-                });
-                div.appendChild(para); 
-
+                
                 var parsedJson = JSON.parse(json);
-
                 // Loop through all the actions in the tag and display them.
                 for (var j = 0; j < parsedJson.actions.length; j++) {
                     var action = parsedJson.actions[j];
 
                     
 
-                    if (action.actionType === 'PagesIncluding') {
+                    /*if (action.actionType === 'PagesIncluding') {
                         var subSectionDiv = document.createElement('div');
                         subSectionDiv.setAttribute('class', 'subSection');
                         div.appendChild(subSectionDiv);
@@ -309,15 +280,15 @@
                         subSectionDiv.appendChild(h4);
                         addPagesIncluding(subSectionDiv, action.data.value);
                     }
-                    else if (action.actionType === 'ShoppingSources') {
+                    else */
+                    if (action.actionType === 'ShoppingSources') {
+                        
+                        console.log("------", parsedJson);
                         var subSectionDiv = document.createElement('div');
                         subSectionDiv.setAttribute('class', 'subSection');
                         div.appendChild(subSectionDiv);
 
-                        var h4 = document.createElement('h4');
-                        h4.innerHTML = "Tiendas en Línea";
-                        subSectionDiv.appendChild(h4);
-                        addShopping(subSectionDiv, action.data.offers);
+                        addShopping(subSectionDiv, action.data.offers, parsedJson.actions[j+1].image.thumbnailUrl, parsedJson.actions[j+1].datePublished);
                     }
                 }
             }
@@ -341,11 +312,16 @@
 
             // Display links for the first 10 shopping offers.
             // TODO: Add 'more' link in case the user wants to see all of them.
-            function addShopping(div, offers) {
+            function addShopping(div, offers, image, date) {
                 var length = (offers.length > 10) ? 10 : offers.length;
 
                 for (var j = 0; j < length; j++) {
                     var para = document.createElement('p');
+
+                    var img = document.createElement('img');
+                    img.setAttribute('src', image);
+                    img.setAttribute('width', 200);
+                    para.appendChild(img);
 
                     var offer = document.createElement('a');
                     offer.text = offers[j].name;
@@ -358,7 +334,16 @@
                     span.textContent = 'by ' + offers[j].seller.name + ' | ' + offers[j].price + ' ' + offers[j].priceCurrency;
                     para.appendChild(span);
 
-                    div.appendChild(para);
+                    //div.appendChild(para);
+                    console.log ({ 
+                        "offerName" : offers[j].name,
+                        "offerLink" :  offers[j].url,
+                        "image" : image,
+                        "sellerLogo" : offers[j].seller.image,
+                        "sellerName" : offers[j].seller.name,
+                        "price" : offers[j].price,
+                        "currency" : offers[j].priceCurrency
+                    });
                 }
             }
 
