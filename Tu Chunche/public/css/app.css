@@ -125,7 +125,7 @@ h1 {
   }
 }
 
-label[for='image'], label[for='camera'] {
+label[for='image'], label[for='camera'], label#enviarCalificacion {
   font-size: 0.7rem;
   font-weight: 600;
   color: #fff;
@@ -177,6 +177,14 @@ input[type='file'] {
 
 .mt-5 {
   margin-top: 5rem;
+}
+
+#calificar {
+  margin-top: 25px;
+}
+
+#calificacionValor {
+  font-size: 16px;
 }
 
 #load {

@@ -35,7 +35,7 @@
 
 <body>
 <div id="main" class="container">
-    <input id='key' type="hidden" value="321c6882349243898df7505cb1cb09ea">
+    <input id='key' type="hidden" value="6a4b105387ba45f58d70d334e9296676">
     <div>
         <div class="tooltip">
             Búsquedas: <span id="cantidad">1</span><br>
@@ -46,11 +46,15 @@
                 ¿Dónde Compraste Tu Chunche?
             </h1>
         </div>
-        <div class="row">
+        <div  id="botones"    class="row">
             <label id="imageName" for="image">Cargar Imagen</label>
             <input id="image" class="file" type="file" name="image" accept="image/*">
             <label id="takeImage" for="camera">Usar Cámara</label>
             <label id="buscar" for="search">Búscar</label>
+        </div>
+        <div id="calificar" class="row">
+            <input id="calificacionValor" type="number" value="5" min="0" max="5" step="1">
+            <label id="enviarCalificacion">Calificar</label>
         </div>
         <form name="bing" onsubmit="return newBingImageSearch(this)">
             <div id="preview" class="row mt-5">
@@ -59,6 +63,8 @@
         </form>
     </div>
 </div>
+
+
 
 <div id="camera" class="container">
     <div class="viewer">

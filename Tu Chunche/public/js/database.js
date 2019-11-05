@@ -43,22 +43,28 @@ let getStats = () => {
         .ref('calificaciones')
         .on('value', function (snapshot) {
             $("#cantidad").html(snapshot.val().cantidad);
-            $("#calificacion").html((snapshot.val().acumulado / snapshot.val().cantidad).toFixed(2));
+            $("#calificacion").html((snapshot.val().acumulado / snapshot.val().calificaciones).toFixed(2));
         });
 }
 
-let updateStats = (calificacion) => {
+let updateStats = (busquedas, calificacion, calificacionValor) => {
     firebase.database()
         .ref('calificaciones/cantidad')
         .transaction(function(cantidad) {
             // If node/clicks has never been set, currentRank will be `null`.
-            return (cantidad || 0) + 1;
+            return (cantidad || 0) + busquedas;
+          });
+    firebase.database()
+        .ref('calificaciones/calificaciones')
+        .transaction(function(cantidad) {
+            // If node/clicks has never been set, currentRank will be `null`.
+            return (cantidad || 0) + calificacion;
           });
     firebase.database()
         .ref('calificaciones/acumulado')
         .transaction(function(acumulado) {
             // If node/clicks has never been set, currentRank will be `null`.
-            return (acumulado || 0) + calificacion;
+            return (acumulado || 0) + calificacionValor;
           });
 }
 
