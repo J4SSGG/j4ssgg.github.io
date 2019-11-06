@@ -184,13 +184,13 @@
                 }
                 console.log(this.responseText.match(/"imageInsightsToken": "[a-zA-Z0-9_\*\.]+",/g, '')); /// muestra todos los tokens a buscar en sendRequest 2
 
+                clearItems(); // elimina resultados anteriores
 
                 var subscriptionKey = document.getElementById('key').value;
                 this.responseText.match(/"imageInsightsToken": "[a-zA-Z0-9_\*\.]+",/g, '').forEach( element => {
                     sendRequest2(element.split("\"")[3], subscriptionKey);
-                    hideWait(); return;
+                    hideWait(); return; // solo una iteracion.
                 })
-                hideWait() 
             }
 
             // Handles the response from Bing. Parses the response and 
