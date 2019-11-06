@@ -188,14 +188,14 @@
                 var subscriptionKey = document.getElementById('key').value;
                 this.responseText.match(/"imageInsightsToken": "[a-zA-Z0-9_\*\.]+",/g, '').forEach( element => {
                     sendRequest2(element.split("\"")[3], subscriptionKey);
+                    hideWait(); return;
                 })
-                sendRequest2(JSON.parse(this.responseText).image.imageInsightsToken, subscriptionKey);
+                hideWait() 
             }
 
             // Handles the response from Bing. Parses the response and 
             // the tag divs.
             function handleResponse2() {
-                hideWait()
                 if(this.status !== 200){
                     alert("Error calling Bing Visual Search. See console log for details.");
                     console.log(this.responseText);
@@ -205,7 +205,6 @@
                 var tags = parseResponse(JSON.parse(this.responseText));
                 
                 buildTagSections(tags);
-
                 document.body.style.cursor = 'default'; // reset the wait curor set by query insights button
             }
 
@@ -236,7 +235,8 @@
                         var tagSection = buildDiv(tags, tag);
                         document.getElementById('responseSection').appendChild(tagSection);
                     }
-                }  
+                } 
+                
             }
 
 
@@ -316,23 +316,6 @@
                 var length = (offers.length > 10) ? 10 : offers.length;
 
                 for (var j = 0; j < length; j++) {
-                    var para = document.createElement('p');
-
-                    var img = document.createElement('img');
-                    img.setAttribute('src', image);
-                    img.setAttribute('width', 200);
-                    para.appendChild(img);
-
-                    var offer = document.createElement('a');
-                    offer.text = offers[j].name;
-                    offer.setAttribute('href', offers[j].url);
-                    offer.setAttribute('style', 'margin: 20px 20px 0 0');
-                    offer.setAttribute('target', '_blank')
-                    para.appendChild(offer);
-
-                    var span = document.createElement('span');
-                    span.textContent = 'by ' + offers[j].seller.name + ' | ' + offers[j].price + ' ' + offers[j].priceCurrency;
-                    para.appendChild(span);
 
                     //div.appendChild(para);
                     console.log ({ 
@@ -344,6 +327,16 @@
                         "price" : offers[j].price,
                         "currency" : offers[j].priceCurrency
                     });
+
+                    addItemRow({ 
+                        "offerName" : offers[j].name,
+                        "offerLink" :  offers[j].url,
+                        "image" : image,
+                        "sellerLogo" : offers[j].seller.image,
+                        "sellerName" : offers[j].seller.name,
+                        "price" : offers[j].price,
+                        "currency" : offers[j].priceCurrency
+                    })
                 }
             }
 

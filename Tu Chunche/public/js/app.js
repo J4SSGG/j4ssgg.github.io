@@ -95,6 +95,24 @@ function filePreviewCanvas(canvas){
     $('#preview img').fadeIn(1000);
 }
 
+function addItemRow(offer){
+    let datatable = $("#results tbody");
+
+    var link = `<a href="${offer.offerLink}" target="_blank">${offer.offerName}</a>`;
+    
+    var img = `<img src="${offer.image}" alt="" width="200">`;
+
+    datatable.append(`
+            <tr>
+            <td>${img}</td>
+            <td>${link}</td>
+            <td>${offer.sellerName}</td>
+            <td>${offer.price}</td>
+            <td>${offer.currency}</td>
+            </tr>
+    `)
+}
+
 $(document).ready(function(){
     $('#load').hide();
 
@@ -103,6 +121,7 @@ $(document).ready(function(){
     $('#enviarCalificacion').click(calificar)
 
     $("#calificar").hide();
+
 });
 
 function showWait(){
