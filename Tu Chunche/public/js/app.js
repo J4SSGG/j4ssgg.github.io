@@ -127,6 +127,11 @@ $(document).ready(function(){
 
     $("#calificar").hide();
 
+    
+    $('#error-contrasena').hide();
+
+    $('#welcome').hide();
+
 });
 
 function showWait(){
@@ -139,15 +144,10 @@ function hideWait(){
 
 function verificarFormulario(){
     if($("#usuario").val() && $("#contrasena").val()){
+        $('#error-contrasena').hide();
         return true;
     }
-
-    if(!$("#usuario").val()){
-        $('.error-usuario').show();
-    }
-    if(!$("#contrasena").val()){
-        $('.error-contrasena').show();
-    }
+    $('#error-contrasena').show();
     return false;
 }
 
@@ -155,7 +155,7 @@ function login(){
     if(verificarFormulario()){
         usuario = $("#usuario").val()
         contrasea = $("#contrasena").val()
-
+        $('#error-contrasena').hide();
         checkUser(usuario, contrasea)
     }
 }

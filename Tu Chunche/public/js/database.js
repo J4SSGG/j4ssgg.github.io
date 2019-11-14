@@ -22,21 +22,39 @@ let checkUser = (username, password) => {
         .orderByChild('username')
         .equalTo(username)
         .once('value', function (snapshot) {
-            checkPassword(snapshot, password)
+            checkPassword(snapshot, username, password)
             checkSession();
         });
 }
 
-let checkPassword = (snapshot, password) => {
+let checkPassword = (snapshot, user, password) => {
     sessionStorage.user = false;
     snapshot.forEach(function (childSnapshot) {
         if (childSnapshot.val().password == password) {
             sessionStorage.user = true;
             return;
+        }else{
+            $('#error-contrasena').show();
         }
     });
 
+    if(!snapshot.val()){
+        // create a register for user
+        createUser(user, password);
+    }
 };
+
+let createUser = (user, password) => {
+    var rootRef = firebase.database().ref('usuarios')
+    var newStoreRef = rootRef.push()
+    newStoreRef.set({
+            username: user,
+            password: password
+        })
+    sessionStorage.user = true;
+    checkSession(true)
+    return;
+}
 
 let getStats = () => {
     firebase.database()
@@ -68,11 +86,14 @@ let updateStats = (busquedas, calificacion, calificacionValor) => {
           });
 }
 
-let checkSession = () => {
+let checkSession = (newUser) => {
     if (sessionStorage.user == "true"){
         $(".wrap").hide()
     }else{
         $(".wrap").show()
+    }
+    if(newUser){
+        $('#welcome').show();
     }
 }
 
