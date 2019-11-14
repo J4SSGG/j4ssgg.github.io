@@ -27,7 +27,8 @@
 
     <link rel="icon" href="images/icon.jpg">
     <link rel="stylesheet" href="css/app.css">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+ 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Chilanka&display=swap" rel="stylesheet">
@@ -113,14 +114,26 @@
 
 
 <div id="responseSection">
+    
 </div>
+
+<table id="results">
+        <thead>
+            <th>Preview</th>
+            <th onclick="sortTableByText(1)">Details</th>
+            <th onclick="sortTableByText(2)">Shop</th>
+            <th onclick="sortTableByNumber(3)">Prices</th>
+            <th onclick="sortTableByText(4)">Currency</th>
+        </thead>
+        <tbody></tbody>
+</table>
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/camera.js" async></script>
 <script src="js/app.js" async></script>
 <script src="js/bingVisualSearch.js" async></script>
-<script src="js/ag-grid-community.min.noStyle.js" async></script>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
@@ -132,6 +145,8 @@
 
 
 <script src="js/database.js" async></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 
 </body>
 </html>
