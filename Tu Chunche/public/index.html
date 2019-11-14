@@ -23,6 +23,16 @@
 
     <base target="_blank">
 
+    
+<div id="welcome">
+    <form class="login-form" action="">
+        <div class="form-header">
+            <h3>Gracias por registrarte.</h3>
+            <p>Esperamos que disfrutes de nuestros servicios :)</p>
+        </div>        
+    </form>
+</div><!--/.wrap-->
+
     <title>¿Dónde compraste tu chunche?</title>
 
     <link rel="icon" href="images/icon.jpg">
@@ -40,7 +50,8 @@
     <div>
         <div class="tooltip">
             Búsquedas: <span id="cantidad">1</span><br>
-            Calificación: <span id="calificacion">1</span>
+            Calificación: <span id="calificacion">1</span><br>
+            <div class="fb-share-button" data-href="http://tu-chunche.web.app/" data-layout="box_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftu-chunche.web.app%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>
         </div>
         <div class="row">
             <h1>
@@ -92,18 +103,17 @@
 <div class="wrap">
     <form class="login-form" action="">
         <div class="form-header">
-            <h3>Indentifícate</h3>
-            <p>Ingresa un usuario y contraseña</p>
+            <h3>Dinos quién eres</h3>
+            <p>Si aun no tienes tu usuario, guardaremos tu información automáticamente</p>
         </div>
         <!--Email Input-->
         <div class="form-group">
             <input id="usuario"  minlength="8" type="text" class="form-input" placeholder="Usuario">
-            <label class="error error-usuario">Usuario no válido</label>
         </div>
         <!--Password Input-->
         <div class="form-group">
             <input id="contrasena" type="password" minlength=8 class="form-input" placeholder="Contraseña">
-            <label class="error error-contrasena">Contraseña no válida</label>
+            <label id="error-contrasena" class="error error-contrasena">Usuario o contraseña incorretos</label>
         </div>
         <!--Login Button-->
         <div class="form-group">
@@ -111,7 +121,6 @@
         </div>
     </form>
 </div><!--/.wrap-->
-
 
 <div id="responseSection">
     
@@ -147,6 +156,7 @@
 <script src="js/database.js" async></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v5.0"></script>
 </body>
 </html>
