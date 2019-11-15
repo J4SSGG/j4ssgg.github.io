@@ -175,7 +175,7 @@ function calificar(){
 
 
 
-function sortTableByNumber(n) {
+function sortTableByNumber(n, elem, title) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("results");
     switching = true;
@@ -228,9 +228,14 @@ function sortTableByNumber(n) {
         }
       }
     }
+    if(dir == "asc"){
+      elem.innerHTML = title + " ↑";
+    }else{
+      elem.innerHTML = title + " ↓";
+    }
   }
 
-  function sortTableByText(n) {
+  function sortTableByText(n, elem, title) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("results");
     switching = true;
@@ -238,6 +243,8 @@ function sortTableByNumber(n) {
     dir = "asc";
     /* Make a loop that will continue until
     no switching has been done: */
+    
+
     while (switching) {
       // Start by saying: no switching is done:
       switching = false;
@@ -282,5 +289,11 @@ function sortTableByNumber(n) {
           switching = true;
         }
       }
+    }
+
+    if(dir == "asc"){
+      elem.innerHTML = title + " ↑";
+    }else{
+      elem.innerHTML = title + " ↓";
     }
   }

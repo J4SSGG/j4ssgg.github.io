@@ -129,10 +129,10 @@
 <table id="results">
         <thead>
             <th>Preview</th>
-            <th onclick="sortTableByText(1)">Details</th>
-            <th onclick="sortTableByText(2)">Shop</th>
-            <th onclick="sortTableByNumber(3)">Prices</th>
-            <th onclick="sortTableByText(4)">Currency</th>
+            <th onclick="sortTableByText(1, this, 'Details')">Details</th>
+            <th onclick="sortTableByText(2, this, 'Shops')">Shop</th>
+            <th onclick="sortTableByNumber(3, this, 'Prices')">Prices</th>
+            <th onclick="sortTableByText(4, this, 'Currency')">Currency</th>
         </thead>
         <tbody></tbody>
 </table>
