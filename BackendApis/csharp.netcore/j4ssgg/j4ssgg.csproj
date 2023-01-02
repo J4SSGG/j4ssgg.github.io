@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\j4ssgg.Dtos\j4ssgg.Dtos.csproj" />
+  </ItemGroup>
+
 </Project>

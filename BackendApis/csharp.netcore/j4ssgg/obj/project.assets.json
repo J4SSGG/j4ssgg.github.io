@@ -232,6 +232,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "j4ssgg.Dtos/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/j4ssgg.Dtos.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/j4ssgg.Dtos.dll": {}
+        }
       }
     }
   },
@@ -584,11 +594,17 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "j4ssgg.Dtos/1.0.0": {
+      "type": "project",
+      "path": "../j4ssgg.Dtos/j4ssgg.Dtos.csproj",
+      "msbuildProject": "../j4ssgg.Dtos/j4ssgg.Dtos.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Microsoft.EntityFrameworkCore.InMemory >= 7.0.1"
+      "Microsoft.EntityFrameworkCore.InMemory >= 7.0.1",
+      "j4ssgg.Dtos >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -619,7 +635,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\j4ssgg.github.io\\BackendApis\\csharp.netcore\\j4ssgg.Dtos\\j4ssgg.Dtos.csproj": {
+              "projectPath": "E:\\j4ssgg.github.io\\BackendApis\\csharp.netcore\\j4ssgg.Dtos\\j4ssgg.Dtos.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
