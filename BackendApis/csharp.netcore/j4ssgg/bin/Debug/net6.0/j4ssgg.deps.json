@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "j4ssgg/1.0.0": {
+        "runtime": {
+          "j4ssgg.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "j4ssgg/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
